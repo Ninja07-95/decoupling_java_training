@@ -1,15 +1,14 @@
 package fr.lernejo.guessgame;
 
-import java.security.SecureRandom;
+import fr.lernejo.logger.Logger;
+import fr.lernejo.logger.LoggerFactory;
 
 public class Launcher {
 
     public static void main(String[] args) {
-        SecureRandom random = new SecureRandom();
-        long randomNumber = random.nextInt(100);
-        Player humanPlayer = new HumanPlayer();
-        Simulation simulation = new Simulation(humanPlayer);
-        simulation.initialize(randomNumber);
+        Logger logger = LoggerFactory.getLogger(Launcher.class.getName());
+        Simulation simulation = new Simulation(new HumanPlayer(), new RandomNumber(), logger);
         simulation.loopUntilPlayerSucceed();
     }
 }
+

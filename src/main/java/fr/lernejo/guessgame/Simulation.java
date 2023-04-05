@@ -1,39 +1,25 @@
+package fr.lernejo.guessgame;
+
+import fr.lernejo.logger.Logger;
+
 public class Simulation {
-    private final Logger logger = LoggerFactory.getLogger("simulation");
     private final Player player;
-    private long numberToGuess;
+    private final Logger logger;
 
-    public Simulation(Player player) {
+    public Simulation(Player player, Logger logger) {
         this.player = player;
-    }
-
-    public void initialize(long numberToGuess) {
-        this.numberToGuess = numberToGuess;
-        logger.log("The number to guess is " + numberToGuess);
-    }
-    private boolean nextRound() {
-        long guess = player.askNextGuess();
-        logger.log("The player guessed " + guess);
-
-        if (guess == numberToGuess) {
-            logger.log("The player guessed the right number!");
-            return true;
-        } else if (guess < numberToGuess) {
-            logger.log("The number to guess is greater");
-            player.respond(true);
-        } else {
-            logger.log("The number to guess is lower");
-            player.respond(false);
-        }
-
-        return false;
+        this.logger = logger;
     }
 
     public void loopUntilPlayerSucceed() {
-        boolean success = false;
-        while (!success) {
-            success = nextRound();
+        int currentTry = 1;
+        int numberToGuess = player.getNumberToGuess();
+        int guess = player.play();
+        while (guess != numberToGuess) {
+            logger.log("Try #" + currentTry + ": " + guess + " is " + (guess < numberToGuess ? "too low" : "too high"));
+            guess = player.play();
+            currentTry++;
         }
-	logger.log("Congratulations! You have found the number " + numberToGuess + "!");
+        logger.log("Success! The number to guess was " + numberToGuess + " and it took " + currentTry + " tries to guess it.");
     }
 }
