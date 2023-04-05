@@ -6,8 +6,6 @@ import java.util.Scanner;
 
 public class HumanPlayer implements Player {
     private final Logger logger = LoggerFactory.getLogger("player");
-    private long lastGuess = 0;
-
     @Override
     public long askNextGuess() {
         Scanner scanner = new Scanner(System.in);
@@ -21,7 +19,6 @@ public class HumanPlayer implements Player {
             }
             long num = scanner.nextLong();
             scanner.nextLine();
-            lastGuess = num;
             return num;
         }
 
@@ -29,10 +26,9 @@ public class HumanPlayer implements Player {
 
     @Override
     public void respond(boolean lowerOrGreater) {
-        if (lowerOrGreater) {
-            logger.log("Your guess (" + lastGuess + ") was too low");
-        } else {
-            logger.log("Your guess (" + lastGuess + ") was too high");
-        }
+        if (lowerOrGreater)
+            logger.log("The value to find is higher" );
+        else
+            logger.log("The value to find is lower");
     }
 }

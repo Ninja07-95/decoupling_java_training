@@ -1,25 +1,36 @@
 package fr.lernejo.guessgame;
 
-import fr.lernejo.logger.Logger;
-
 public class Simulation {
     private final Player player;
-    private final Logger logger;
+    private long numberToGuess;
 
-    public Simulation(Player player, Logger logger) {
+    public Simulation(Player player) {
         this.player = player;
-        this.logger = logger;
     }
 
-    public void loopUntilPlayerSucceed() {
-        int currentTry = 1;
-        int numberToGuess = player.getNumberToGuess();
-        int guess = player.play();
-        while (guess != numberToGuess) {
-            logger.log("Try #" + currentTry + ": " + guess + " is " + (guess < numberToGuess ? "too low" : "too high"));
-            guess = player.play();
-            currentTry++;
+    public void initialize(long numberToGuess) {
+        this.numberToGuess = numberToGuess;
+    }
+
+    private boolean nextRound() {
+        // TODO Implement the nextRound method
+        return false;
+    }
+
+    public void loopUntilPlayerSucceed(long limit) {
+        boolean isFinished = false;
+        long n = 0;
+        long startTime = System.currentTimeMillis();
+        while (!isFinished && n < limit) {
+            isFinished = nextRound();
+            n++;
         }
-        logger.log("Success! The number to guess was " + numberToGuess + " and it took " + currentTry + " tries to guess it.");
+        long duringTime = System.currentTimeMillis() - startTime;
+        // TODO log or print the duration
+        if (isFinished)
+            // TODO log or print the number of iterations
+        else
+            // TODO log or print the failure message
     }
 }
+
