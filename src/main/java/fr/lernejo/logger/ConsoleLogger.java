@@ -1,8 +1,8 @@
-import java.util.Date;
+package fr.lernejo.logger;
 
 public class ConsoleLogger implements Logger {
+    @Override
     public void log(String message) {
-        Date now = new Date();
-        System.out.println(now.toString() + " : " + message);
+        System.out.println(message);
     }
 }
